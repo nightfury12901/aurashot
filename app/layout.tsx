@@ -87,6 +87,9 @@ export const metadata: Metadata = {
     },
     verification: {
         google: 'hSSiY8gP1kbW9s84_Jic5Vef_i4brETAn8RyeQwNTzQ',
+    },
+    other: {
+        'google-adsense-account': 'ca-pub-9844229485914412',
     }
 };
 
