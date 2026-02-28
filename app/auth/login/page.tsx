@@ -100,7 +100,7 @@ function LoginForm() {
 
                     <form onSubmit={handleLogin} className="space-y-4">
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium mb-1.5">Email</label>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
                             <div className="relative">
                                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                 <input
@@ -108,7 +108,7 @@ function LoginForm() {
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full h-11 pl-10 pr-4 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm"
+                                    className="w-full h-11 pl-10 pr-4 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm text-gray-900 placeholder:text-gray-400 bg-white"
                                     placeholder="you@example.com"
                                     required
                                 />
@@ -116,7 +116,7 @@ function LoginForm() {
                         </div>
 
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium mb-1.5">Password</label>
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
                             <div className="relative">
                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                 <input
@@ -124,7 +124,7 @@ function LoginForm() {
                                     type={showPassword ? 'text' : 'password'}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full h-11 pl-10 pr-10 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm"
+                                    className="w-full h-11 pl-10 pr-10 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm text-gray-900 placeholder:text-gray-400 bg-white"
                                     placeholder="••••••••"
                                     required
                                 />
