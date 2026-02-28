@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://aurashot.in'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://aurashot.vercel.app'),
     title: {
         default: `${APP_NAME} — Free AI Portrait Generator & Professional Headshots`,
         template: `%s | ${APP_NAME}`,
@@ -118,7 +118,7 @@ export default function RootLayout({
                             description: 'Create viral, photorealistic AI portraits, LinkedIn headshots, and marketing assets instantly. Features include an AI portrait generator, 4K image enhancer, and HD background remover.',
                             applicationCategory: 'DesignApplication',
                             operatingSystem: 'Web, Windows, macOS, iOS, Android',
-                            url: 'https://aurashot.in',
+                            url: 'https://aurashot.vercel.app',
                             offers: {
                                 '@type': 'AggregateOffer',
                                 lowPrice: '0',
