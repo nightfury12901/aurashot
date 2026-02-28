@@ -172,26 +172,28 @@ export function Pricing() {
                                 ))}
                             </ul>
 
-                            <button
-                                onClick={() => handleSubscribe(tier)}
-                                disabled={loading === tier.id}
-                                className={cn(
-                                    'w-full rounded-xl h-10 text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2',
-                                    tier.popular
-                                        ? 'bg-violet-600 hover:bg-violet-500 text-white'
-                                        : 'bg-white/[0.06] hover:bg-white/[0.10] text-white/70 border border-white/[0.08]'
-                                )}
-                                style={tier.popular ? { boxShadow: '0 0 16px rgba(139,92,246,0.3)' } : {}}
-                            >
-                                {loading === tier.id ? (
-                                    <Loader2 className="h-4 w-4 animate-spin text-white/70" />
-                                ) : (
-                                    <>
-                                        {'Buy Pack'}
-                                        {tier.id === 'pro' && <Crown className="h-3.5 w-3.5" />}
-                                    </>
-                                )}
-                            </button>
+                            {tier.id === 'free' ? null : (
+                                <button
+                                    onClick={() => handleSubscribe(tier)}
+                                    disabled={loading === tier.id}
+                                    className={cn(
+                                        'w-full rounded-xl h-10 text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2',
+                                        tier.popular
+                                            ? 'bg-violet-600 hover:bg-violet-500 text-white'
+                                            : 'bg-white/[0.06] hover:bg-white/[0.10] text-white/70 border border-white/[0.08]'
+                                    )}
+                                    style={tier.popular ? { boxShadow: '0 0 16px rgba(139,92,246,0.3)' } : {}}
+                                >
+                                    {loading === tier.id ? (
+                                        <Loader2 className="h-4 w-4 animate-spin text-white/70" />
+                                    ) : (
+                                        <>
+                                            {'Buy Pack'}
+                                            {tier.id === 'pro' && <Crown className="h-3.5 w-3.5" />}
+                                        </>
+                                    )}
+                                </button>
+                            )}
                         </div>
                     ))}
                 </div>

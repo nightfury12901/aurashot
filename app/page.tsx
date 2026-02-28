@@ -8,6 +8,7 @@ import { Pricing } from '@/components/landing/Pricing';
 import { FAQ } from '@/components/landing/FAQ';
 import { CTA } from '@/components/landing/CTA';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase/server';
 
 export const metadata: Metadata = {
     title: 'AuraShot — The Best AI Portrait Generator & Editor Online',
@@ -55,7 +56,9 @@ export const metadata: Metadata = {
     },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
     return (
         <main className="bg-[#09090b] min-h-screen">
             {/* Navigation */}
@@ -74,18 +77,29 @@ export default function HomePage() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <Link
-                            href="/auth/login"
-                            className="text-sm font-medium text-white/60 hover:text-white transition-colors"
-                        >
-                            Log In
-                        </Link>
-                        <Link
-                            href="/auth/signup"
-                            className="text-sm font-semibold bg-white text-black hover:bg-white/90 px-4 py-2 rounded-lg transition-colors"
-                        >
-                            Sign Up Free
-                        </Link>
+                        {user ? (
+                            <Link
+                                href="/dashboard"
+                                className="text-sm font-semibold bg-white text-black hover:bg-white/90 px-4 py-2 rounded-lg transition-colors"
+                            >
+                                Dashboard
+                            </Link>
+                        ) : (
+                            <>
+                                <Link
+                                    href="/auth/login"
+                                    className="text-sm font-medium text-white/60 hover:text-white transition-colors"
+                                >
+                                    Log In
+                                </Link>
+                                <Link
+                                    href="/auth/signup"
+                                    className="text-sm font-semibold bg-white text-black hover:bg-white/90 px-4 py-2 rounded-lg transition-colors"
+                                >
+                                    Sign Up Free
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </nav>

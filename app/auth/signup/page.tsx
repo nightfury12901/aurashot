@@ -1,21 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Mail, Lock, User, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import toast from 'react-hot-toast';
 
-export default function SignupPage() {
+function SignupForm() {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const nextPath = searchParams.get('next') || '/dashboard';
 
     // After successful signup/login, auto-download any pending image from landing page
     // This runs once on mount — if user was redirected here after clicking 'Download HD'
@@ -47,7 +49,7 @@ export default function SignupPage() {
                 password,
                 options: {
                     data: { full_name: fullName },
-                    emailRedirectTo: `${window.location.origin}/auth/callback`,
+                    emailRedirectTo: `${window.location.origin}/auth/callback?redirect=${nextPath}`,
                 },
             });
 
@@ -66,7 +68,7 @@ export default function SignupPage() {
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: `${window.location.origin}/auth/callback`,
+                redirectTo: `${window.location.origin}/auth/callback?redirect=${nextPath}`,
             },
         });
         if (error) toast.error(error.message);
@@ -186,5 +188,13 @@ export default function SignupPage() {
                 </div>
             </motion.div>
         </div>
+    );
+}
+
+export default function SignupPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-gradient-main flex items-center justify-center">Loading...</div>}>
+            <SignupForm />
+        </Suspense>
     );
 }

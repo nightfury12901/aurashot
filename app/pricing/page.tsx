@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Pricing } from '@/components/landing/Pricing';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase/server';
 
 export const metadata: Metadata = {
     title: 'Pricing — Affordable AI Portrait Plans',
@@ -14,7 +15,10 @@ export const metadata: Metadata = {
     ],
 };
 
-export default function PricingPage() {
+export default async function PricingPage() {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
     return (
         <main className="bg-gradient-main min-h-screen">
             {/* Nav */}
@@ -25,12 +29,20 @@ export default function PricingPage() {
                         <span className="font-display font-bold text-xl">AuraShot</span>
                     </Link>
                     <div className="flex items-center gap-3">
-                        <Link href="/auth/login" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-                            Log In
-                        </Link>
-                        <Link href="/auth/signup" className="text-sm font-medium bg-primary text-white px-4 py-2 rounded-xl hover:bg-primary-600">
-                            Sign Up Free
-                        </Link>
+                        {user ? (
+                            <Link href="/dashboard" className="text-sm font-medium bg-primary text-white px-4 py-2 rounded-xl hover:bg-primary-600">
+                                Dashboard
+                            </Link>
+                        ) : (
+                            <>
+                                <Link href="/auth/login" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+                                    Log In
+                                </Link>
+                                <Link href="/auth/signup" className="text-sm font-medium bg-primary text-white px-4 py-2 rounded-xl hover:bg-primary-600">
+                                    Sign Up Free
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </nav>
