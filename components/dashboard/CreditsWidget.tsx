@@ -96,9 +96,8 @@ export function CreditsWidget() {
                     )}
                 </div>
 
-                {/* Credits Grid */}
                 {summary ? (
-                    <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-3 w-full">
+                    <div className="flex-[2] grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 w-full">
                         {Object.entries(opConfig).map(([key, cfg]) => {
                             const stat = summary[key as keyof CreditsSummary];
                             if (!stat || stat.limit === 0) return null; // Don't show if unavaiable in this tier
@@ -110,9 +109,9 @@ export function CreditsWidget() {
                             return (
                                 <div key={key} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3 flex flex-col justify-between">
                                     <div>
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Icon className="h-3.5 w-3.5" style={{ color: cfg.color }} />
-                                            <span className="text-[10px] uppercase font-bold tracking-wider text-white/40">{cfg.label}</span>
+                                        <div className="flex items-start gap-2 mb-2">
+                                            <Icon className="h-3.5 w-3.5 shrink-0 mt-0.5" style={{ color: cfg.color }} />
+                                            <span className="text-[10px] uppercase font-bold tracking-wider text-white/40 leading-tight break-words">{cfg.label}</span>
                                         </div>
                                         <div className="flex items-end gap-1 mb-2">
                                             <span className={`text-xl font-bold ${isAlmostEmpty ? 'text-red-400' : 'text-white'}`}>
@@ -136,7 +135,7 @@ export function CreditsWidget() {
                         })}
                     </div>
                 ) : (
-                    <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-3 w-full opacity-50">
+                    <div className="flex-[2] grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 w-full opacity-50">
                         {/* Loading skeletons for grid */}
                         {[1, 2, 3].map(i => <div key={i} className="h-24 rounded-xl skeleton bg-white/[0.02]" />)}
                     </div>
