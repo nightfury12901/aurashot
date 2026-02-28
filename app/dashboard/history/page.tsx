@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { createBrowserClient } from '@supabase/ssr';
 import { Download, Clock, Image as ImageIcon, Wand2, Eraser, Sparkles } from 'lucide-react';
+import { CreditsWidget } from '@/components/dashboard/CreditsWidget';
 import { getTimeAgo } from '@/lib/utils';
 import type { Generation } from '@/lib/types';
 
@@ -56,6 +57,8 @@ export default function HistoryPage() {
                 </div>
                 <p className="text-white/40 text-sm ml-11">Your recent AI generations</p>
             </motion.div>
+
+            <CreditsWidget />
 
             {loading ? (
                 <div className="space-y-3">
