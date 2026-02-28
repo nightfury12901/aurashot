@@ -103,8 +103,8 @@ export default function HistoryPage() {
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2 mb-1">
                                         <span className="font-medium text-sm text-white/80">{cfg.label}</span>
-                                        <span className={`text-[10px] px-2 py-0.5 rounded-full border font-medium ${statusStyle[gen.status] || statusStyle.pending}`}>
-                                            {gen.status}
+                                        <span className={`text-[10px] px-2 py-0.5 rounded-full border font-medium ${statusStyle[gen.output_image_url ? 'completed' : (gen.status || 'pending')] || statusStyle.pending}`}>
+                                            {gen.output_image_url ? 'completed' : (gen.status || 'pending')}
                                         </span>
                                     </div>
                                     <p className="text-xs text-white/30">

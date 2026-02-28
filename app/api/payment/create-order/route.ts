@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
         .from('profiles')
         .update({
           credits_remaining: newCredits,
-          tier: tier.id === 'pro' ? 'pro' : (tier.id === 'creator' ? 'pro' : 'free') // If they got a paid pack free, bump tier
+          tier: tier.id
         })
         .eq('id', user.id);
 

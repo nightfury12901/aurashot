@@ -32,13 +32,18 @@ export function CreditsWidget() {
                 const { data: { user } } = await supabase.auth.getUser();
                 if (!user) return;
 
-                const { data: profile } = await supabase.from('profiles').select('tier').eq('id', user.id).single();
-                if (profile?.tier) setTier(profile.tier as Tier);
+                const profilePromise = supabase.from('profiles').select('tier').eq('id', user.id).single();
+                const creditsPromise = fetch('/api/credits/check');
 
-                const res = await fetch('/api/credits/check');
-                const data = await res.json();
-                if (data.summary) {
-                    setSummary(data.summary);
+                const [profileRes, creditsRes] = await Promise.all([profilePromise, creditsPromise]);
+
+                if (profileRes.data?.tier) setTier(profileRes.data.tier as Tier);
+
+                if (creditsRes.ok) {
+                    const data = await creditsRes.json();
+                    if (data.data) {
+                        setSummary(data.data as CreditsSummary);
+                    }
                 }
             } catch (error) {
                 console.error('Failed to fetch credits:', error);
