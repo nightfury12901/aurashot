@@ -47,14 +47,6 @@ export const ARTISTIC_TEMPLATE_NAMES = new Set([
     'Watercolor Dreamscape',
     'Film Noir Monochrome',
     'Pop Art Explosion',
-    // Religious / spiritual templates — masks from BiSeNet weren't precise enough
-    // for ideogram inpainting; Nano Banana 2 style-transfer gives better results
-    'Ancient Hanuman',
-    'Cosmic Protector Lord Vishnu',
-    'Blessing from Maa Saraswati',
-    'Blessing Aura',
-    'Flute With Krishna',
-    'Shiv Meditation',
 ]);
 
 // ─── Portrait Generation — ideogram/v3/edit (ALL templates except artistic) ───────
