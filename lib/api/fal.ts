@@ -154,29 +154,23 @@ export async function generatePortraitNanaBanana2(
         templateImage: params.templateImageUrl,
     });
 
-    // Face preservation is the #1 constraint.
+    // User face FIRST so the model anchors identity on it (higher attention weight).
+    // Concise, natural-language prompt — Gemini Flash Image responds better to this
+    // than adversarial "CRITICAL/IMMUTABLE" phrasing.
     const prompt =
-        `CRITICAL REQUIREMENT — DO NOT CHANGE THE FACE: The output must show the EXACT same face as the person in image 2. Zero alterations to facial features, bone structure, skin tone, eyes, nose, mouth, or identity.
-
-You have two reference images:
-1. An artistic style template (shows the target art medium, color palette, and composition)
-2. A photo of a real person — their EXACT face must appear unchanged in the output
-
-Task: Apply ONLY the art style/medium from image 1 to the person from image 2.
-- The person's face is IMMUTABLE — identical eyes, nose, lips, jaw, skin tone, facial structure, and any facial hair
-- Only change the artistic rendering: brushstroke texture, line art, watercolor wash, color grading, etc.
-- Keep the same head angle and framing as image 2 (the real photo)
-- ${params.templatePrompt}
-- Person: ${params.userDescription}
-- Output ONE portrait with the unchanged real face rendered in the art style.`;
+        `Create a portrait of the person in image 1, applying ONLY the artistic style from image 2. ` +
+        `Keep the person's face, identity, and all facial features exactly as they appear in image 1 — ` +
+        `do not alter, replace, or stylize the face itself. ` +
+        `Only change the rendering style, colors, and background to match the art style in image 2. ` +
+        `${params.templatePrompt}. Person details: ${params.userDescription}.`;
 
     const result = (await fal.subscribe('fal-ai/nano-banana-2/edit', {
         input: {
-            image_urls: [params.templateImageUrl, params.userFaceUrl],
+            image_urls: [params.userFaceUrl, params.templateImageUrl],
             prompt,
             aspect_ratio: params.aspectRatio ?? '2:3',
             output_format: 'jpeg',
-            resolution: '1K',
+            resolution: '2K',
             safety_tolerance: '4',
             limit_generations: true,
             num_images: 1,
