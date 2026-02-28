@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         default: `${APP_NAME} — Free AI Portrait Generator & Professional Headshots`,
         template: `%s | ${APP_NAME}`,
     },
-    description: 'Create viral, photorealistic AI portraits and professional LinkedIn headshots from your selfies instantly. Try our free AI image generator, background remover, and 4K photo enhancer. Join early access creators using AuraShot for premium avatars and studio-quality photoshoots without the studio price.',
+    description: 'Create viral, photorealistic AI portraits from selfies. Try our free AI image generator, background remover, and 4K photo enhancer today!',
     keywords: [
         'AI portrait generator free',
         'professional AI headshot generator',
