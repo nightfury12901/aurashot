@@ -89,6 +89,24 @@ export default function BackgroundPage() {
         }
     };
 
+    const handleDownload = async (url: string, filename: string) => {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
+        } catch (error) {
+            console.error('Download failed:', error);
+            toast.error('Failed to download image');
+        }
+    };
+
     return (
         <div className="flex h-full min-h-screen">
             {/* Canvas Area */}
@@ -166,12 +184,16 @@ export default function BackgroundPage() {
                                             <span className="text-xs text-green-400 font-medium">Background removed</span>
                                         </div>
                                         <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <a href={resultUrl} download="no-background.png" className="w-full">
-                                                <button className="w-full py-2.5 rounded-xl bg-green-600/90 backdrop-blur text-white text-sm font-medium flex items-center justify-center gap-2 hover:bg-green-500 transition-colors" style={{ boxShadow: '0 0 20px rgba(34,197,94,0.4)' }}>
+                                            <div className="w-full">
+                                                <button
+                                                    onClick={() => handleDownload(resultUrl, 'no-background.png')}
+                                                    className="w-full py-2.5 rounded-xl bg-green-600/90 backdrop-blur text-white text-sm font-medium flex items-center justify-center gap-2 hover:bg-green-500 transition-colors"
+                                                    style={{ boxShadow: '0 0 20px rgba(34,197,94,0.4)' }}
+                                                >
                                                     <Download className="h-4 w-4" />
                                                     Download PNG (Transparent)
                                                 </button>
-                                            </a>
+                                            </div>
                                         </div>
                                     </motion.div>
                                 ) : (
@@ -199,10 +221,10 @@ export default function BackgroundPage() {
                     <div className="relative rounded-2xl overflow-hidden border border-white/10 max-w-[400px] mx-auto shadow-2xl aspect-[2/3]">
                         <ReactCompareSlider
                             boundsPadding={0}
-                            itemOne={<img src="/bgbefore.png" alt="Before Background Removal" className="w-full h-full object-cover object-center" />}
+                            itemOne={<img src="/bgbefore.webp" alt="Before Background Removal" className="w-full h-full object-cover object-center" />}
                             itemTwo={
                                 <div className="w-full h-full" style={{ background: 'repeating-conic-gradient(#1a1a22 0% 25%, #141418 0% 50%) 0 0 / 20px 20px' }}>
-                                    <img src="/bgafter.png" alt="After Background Removal" className="w-full h-full object-cover object-center" />
+                                    <img src="/bgafter.webp" alt="After Background Removal" className="w-full h-full object-cover object-center" />
                                 </div>
                             }
                             position={50}

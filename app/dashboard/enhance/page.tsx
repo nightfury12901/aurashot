@@ -81,6 +81,24 @@ export default function EnhancePage() {
         }
     };
 
+    const handleDownload = async (url: string, filename: string) => {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
+        } catch (error) {
+            console.error('Download failed:', error);
+            toast.error('Failed to download image');
+        }
+    };
+
     return (
         <div className="flex h-full min-h-screen">
             {/* Canvas Area */}
@@ -104,9 +122,9 @@ export default function EnhancePage() {
                         <div
                             {...getRootProps()}
                             className={`flex-1 min-h-[300px] studio-canvas rounded-2xl flex items-center justify-center cursor-pointer transition-all duration-200 ${isDragActive ? 'border-blue-500/50 bg-blue-500/[0.04]' : 'drop-zone'
-                                } ${imageUrl ? 'p-0 overflow-hidden' : 'p-8'} ${tier === 'starter' || tier === 'free' ? 'opacity-50 pointer-events-none' : ''}`}
+                                } ${imageUrl ? 'p-0 overflow-hidden' : 'p-8'}`}
                         >
-                            <input {...getInputProps()} disabled={tier === 'starter' || tier === 'free'} />
+                            <input {...getInputProps()} />
                             {imageUrl ? (
                                 <div className="relative w-full h-full group">
                                     <img src={imageUrl} alt="Original" className="w-full h-full object-contain rounded-2xl" />
@@ -161,12 +179,16 @@ export default function EnhancePage() {
                                     >
                                         <img src={enhancedUrl} alt="Enhanced" className="w-full h-full object-contain rounded-2xl" />
                                         <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <a href={enhancedUrl} download="enhanced.png" className="w-full">
-                                                <button className="w-full py-2.5 rounded-xl bg-blue-600/90 backdrop-blur text-white text-sm font-medium flex items-center justify-center gap-2 hover:bg-blue-500 transition-colors" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.4)' }}>
+                                            <div className="w-full">
+                                                <button
+                                                    onClick={() => handleDownload(enhancedUrl, 'enhanced.png')}
+                                                    className="w-full py-2.5 rounded-xl bg-blue-600/90 backdrop-blur text-white text-sm font-medium flex items-center justify-center gap-2 hover:bg-blue-500 transition-colors"
+                                                    style={{ boxShadow: '0 0 20px rgba(59,130,246,0.4)' }}
+                                                >
                                                     <Download className="h-4 w-4" />
                                                     Download Enhanced
                                                 </button>
-                                            </a>
+                                            </div>
                                         </div>
                                     </motion.div>
                                 ) : (
@@ -199,8 +221,8 @@ export default function EnhancePage() {
                     <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#000000] max-w-[400px] mx-auto shadow-2xl aspect-[554/792]">
                         <ReactCompareSlider
                             boundsPadding={0}
-                            itemOne={<ReactCompareSliderImage src="/enhancementbefore.png" alt="Before Enhancement" className="w-full h-full object-cover object-center" />}
-                            itemTwo={<ReactCompareSliderImage src="/enhancementafter.png" alt="After Enhancement" className="w-full h-full object-cover object-center" />}
+                            itemOne={<ReactCompareSliderImage src="/enhancementbefore.webp" alt="Before Enhancement" className="w-full h-full object-cover object-center" />}
+                            itemTwo={<ReactCompareSliderImage src="/enhancementafter.webp" alt="After Enhancement" className="w-full h-full object-cover object-center" />}
                             position={50}
                             style={{ width: '100%', height: '100%' }}
                             className="w-full h-full"
@@ -273,14 +295,6 @@ export default function EnhancePage() {
                     )}
                 </button>
 
-                {(tier === 'starter' || tier === 'free') && (
-                    <div className="mt-2 text-center p-3 rounded-xl bg-orange-500/10 border border-orange-500/20">
-                        <p className="text-xs text-orange-400 font-medium mb-2">4K Upscaling requires Creator Pack</p>
-                        <button onClick={() => router.push('/pricing')} className="text-xs font-semibold text-white bg-orange-500 hover:bg-orange-600 px-3 py-1.5 rounded-lg w-full transition-colors">
-                            Upgrade Now
-                        </button>
-                    </div>
-                )}
             </div>
 
             {/* Mobile action button */}
