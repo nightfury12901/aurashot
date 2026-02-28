@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
 import { APP_NAME, APP_DESCRIPTION, SEO_KEYWORDS, APP_TAGLINE } from '@/lib/constants';
@@ -85,7 +86,7 @@ export const metadata: Metadata = {
         canonical: '/',
     },
     verification: {
-        google: 'your-google-verification-code', // Reminder to set this up in Google Search Console
+        google: 'hSSiY8gP1kbW9s84_Jic5Vef_i4brETAn8RyeQwNTzQ',
     }
 };
 
@@ -100,6 +101,12 @@ export default function RootLayout({
                 <link rel="icon" href="/favicon.ico" sizes="any" />
                 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
                 <link rel="manifest" href="/manifest.json" />
+                <Script
+                    id="adsense-init"
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9844229485914412"
+                    crossOrigin="anonymous"
+                    strategy="afterInteractive"
+                />
                 {/* JSON-LD Structured Data */}
                 <script
                     type="application/ld+json"
@@ -137,6 +144,7 @@ export default function RootLayout({
             </head>
             <body className="min-h-screen bg-background font-sans antialiased">
                 {children}
+                <GoogleAnalytics gaId="G-SLLTK2B76C" />
                 <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
                 <Toaster
                     position="bottom-right"

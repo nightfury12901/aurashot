@@ -31,7 +31,7 @@ export function AdUnit({ slotId, format = 'auto', className = '', isFreeTier }: 
             <ins
                 className="adsbygoogle"
                 style={{ display: 'block', width: '100%' }}
-                data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                data-ad-client="ca-pub-9844229485914412"
                 data-ad-slot={slotId}
                 data-ad-format={format}
                 data-full-width-responsive="true"
