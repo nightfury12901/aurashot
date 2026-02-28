@@ -47,7 +47,7 @@ export default function HistoryPage() {
     }, []);
 
     return (
-        <div className="p-6 md:p-8 pb-24 md:pb-8 max-w-3xl">
+        <div className="p-6 md:p-8 pb-24 md:pb-8 w-full max-w-5xl mx-auto">
             <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
                 <div className="flex items-center gap-3 mb-1">
                     <div className="w-8 h-8 rounded-lg bg-white/[0.06] border border-white/[0.08] flex items-center justify-center">
