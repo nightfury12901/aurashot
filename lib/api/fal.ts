@@ -135,38 +135,37 @@ export async function generatePortraitIdeogramV3(
 
 export interface NanaBanana2Params {
     userFaceUrl: string;
-    templateImageUrl: string;
     templatePrompt: string;
     userDescription: string;    // from face-feature analysis
     aspectRatio?: string;       // default: "2:3"
 }
 
 /**
- * Artistic style-transfer via Nano Banana 2 — ONLY for 7 art-style templates.
- * Face identity is IMMUTABLE: only the art medium/style changes.
+ * Artistic style-transfer via Nano Banana 2 — for artistic/religious templates.
+ * Sends ONLY the user's face photo. The artistic style is driven entirely by
+ * the prompt (from Supabase prompt_template). No template image is sent, so
+ * the model cannot hallucinate or blend between two different faces.
+ *
  * Model: fal-ai/nano-banana-2/edit
  */
 export async function generatePortraitNanaBanana2(
     params: NanaBanana2Params,
 ): Promise<{ imageUrl: string }> {
-    console.log('[NanaBanana2/edit] calling', {
+    console.log('[NanaBanana2/edit] calling (face-only, prompt-driven style)', {
         hasUserFace: !!params.userFaceUrl,
-        templateImage: params.templateImageUrl,
     });
 
-    // User face FIRST so the model anchors identity on it (higher attention weight).
-    // Concise, natural-language prompt — Gemini Flash Image responds better to this
-    // than adversarial "CRITICAL/IMMUTABLE" phrasing.
+    // Only the user face is provided as a reference image.
+    // The style/scene comes entirely from the prompt — no second image to confuse the model.
     const prompt =
-        `Create a portrait of the person in image 1, applying ONLY the artistic style from image 2. ` +
-        `Keep the person's face, identity, and all facial features exactly as they appear in image 1 — ` +
-        `do not alter, replace, or stylize the face itself. ` +
-        `Only change the rendering style, colors, and background to match the art style in image 2. ` +
-        `${params.templatePrompt}. Person details: ${params.userDescription}.`;
+        `Using the person in the photo as the subject, create a portrait with the following style: ` +
+        `${params.templatePrompt}. ` +
+        `The person's face, identity, and all facial features must remain exactly as they appear in the photo. ` +
+        `Person details: ${params.userDescription}.`;
 
     const result = (await fal.subscribe('fal-ai/nano-banana-2/edit', {
         input: {
-            image_urls: [params.userFaceUrl, params.templateImageUrl],
+            image_urls: [params.userFaceUrl],
             prompt,
             aspect_ratio: params.aspectRatio ?? '2:3',
             output_format: 'jpeg',
