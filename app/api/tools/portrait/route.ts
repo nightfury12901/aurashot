@@ -190,6 +190,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       console.log('[portrait/route] → nano-banana-2/edit (artistic style transfer)');
       const result = await generatePortraitNanaBanana2({
         userFaceUrl,
+        templateImageUrl,
         templatePrompt: basePrompt,
         userDescription,
         aspectRatio: templateAspectRatio,
