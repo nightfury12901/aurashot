@@ -425,39 +425,39 @@ function ImageGenInner() {
                             animate={{ opacity: 1, y: 0 }}
                             className="glass rounded-2xl overflow-hidden"
                         >
-                            <div className={`relative w-full ${img.aspectClass || 'aspect-square'} bg-black/30`}>
+                            <div className={`relative w-full ${img.aspectClass || 'aspect-square'} flex items-center justify-center bg-[#111113]/50`}>
                                 <img
                                     src={img.url}
                                     alt={img.prompt}
-                                    className="object-cover w-full h-full absolute inset-0"
+                                    className="object-contain w-full h-full absolute inset-0"
                                 />
                             </div>
-                            <div className="p-3 flex items-center justify-between gap-3">
-                                <p className="text-xs text-white/40 line-clamp-1 flex-1">{img.prompt}</p>
-                                <div className="flex gap-2 flex-shrink-0">
+                            <div className="p-4 flex items-center justify-between gap-4 bg-black/20">
+                                <p className="text-sm text-white/60 line-clamp-2 flex-1 leading-relaxed">{img.prompt}</p>
+                                <div className="flex gap-2.5 flex-shrink-0">
                                     <button
                                         onClick={() => { navigator.clipboard.writeText(img.prompt); toast.success('Prompt copied!'); }}
-                                        className="p-1.5 rounded-lg hover:bg-white/[0.06] text-white/40 hover:text-white/80 transition-colors"
+                                        className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-colors"
                                         title="Copy prompt"
                                     >
-                                        <Copy className="h-3.5 w-3.5" />
+                                        <Copy className="h-4 w-4" />
                                     </button>
                                     <button
                                         onClick={() => handleDownload(img.url, i)}
-                                        className="p-1.5 rounded-lg hover:bg-white/[0.06] text-white/40 hover:text-white/80 transition-colors"
-                                        title="Download"
+                                        className="p-2 rounded-xl bg-violet-500/10 hover:bg-violet-500/20 text-violet-400 hover:text-violet-300 transition-colors border border-violet-500/20"
+                                        title="Download Image"
                                     >
-                                        <Download className="h-3.5 w-3.5" />
+                                        <Download className="h-4 w-4" />
                                     </button>
                                     <button
                                         onClick={() => setActiveRefineIdx(activeRefineIdx === i ? null : i)}
-                                        className={`p-1.5 rounded-lg transition-colors ${activeRefineIdx === i
-                                            ? 'bg-pink-500/20 text-pink-400'
-                                            : 'hover:bg-white/[0.06] text-white/40 hover:text-pink-400'
+                                        className={`p-2 rounded-xl transition-colors ${activeRefineIdx === i
+                                            ? 'bg-pink-500/20 text-pink-400 border border-pink-500/20'
+                                            : 'bg-white/5 hover:bg-white/10 text-white/50 hover:text-pink-400 border border-transparent'
                                             }`}
                                         title="Refine with AI"
                                     >
-                                        <Sparkles className="h-3.5 w-3.5" />
+                                        <Sparkles className="h-4 w-4" />
                                     </button>
                                 </div>
                             </div>
