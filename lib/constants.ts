@@ -22,11 +22,12 @@ export const SEO_KEYWORDS = [
 // Usage caps based on tiers (replacing old credits logic)
 export const TIER_CAPS = {
   free: {
-    portraits: 3, // Lifetime
-    enhance: 0,
-    background_remove: 0,
+    portraits: 2, // Lifetime
+    enhance: 3,
+    background_remove: 10,
     beautify: 0,
     prompt_reversals: 10, // Daily
+    image_gen: 2,
   },
   starter: {
     portraits: 5,
@@ -90,15 +91,32 @@ export const RATE_LIMITS = {
 // Pricing tiers (India-optimized, One-Time)
 export const PRICING_TIERS: PricingTier[] = [
   {
+    id: 'free',
+    name: 'Free Tier',
+    description: 'Start your journey with AuraShot. Includes basic tools.',
+    price: 0,
+    currency: 'INR',
+    interval: 'one-time',
+    credits: 0,
+    features: [
+      '2 AI Portraits (Watermarked)',
+      '2 Image Generations (Watermarked)',
+      '3 Image Enhancements',
+      '10 Background Removals',
+      '10 Prompt Reversals/day',
+    ],
+  },
+  {
     id: 'starter',
     name: 'Starter Tier',
-    description: 'Portraits + Enhancement + BG Removal',
+    description: 'Portraits + Enhancement + BG Removal. No watermarks.',
     price: 149,
     currency: 'INR',
     interval: 'one-time',
     credits: 5, // Legacy field
     features: [
-      '5 AI Portraits',
+      '5 AI Portraits (No Watermark)',
+      'Watermark Removal Included',
       '5 Enhancements',
       '10 Background Removals',
       '20 Prompt Reversals/day',
@@ -113,7 +131,8 @@ export const PRICING_TIERS: PricingTier[] = [
     interval: 'one-time',
     credits: 15, // Legacy field
     features: [
-      '15 AI Portraits',
+      '15 AI Portraits (No Watermark)',
+      'Watermark Removal Included',
       '15 Enhancements',
       '25 Background Removals',
       '10 Beautifications',
@@ -131,7 +150,8 @@ export const PRICING_TIERS: PricingTier[] = [
     interval: 'one-time',
     credits: 40, // Legacy field
     features: [
-      '40 AI Portraits',
+      '40 AI Portraits (No Watermark)',
+      'Watermark Removal Included',
       '40 Enhancements',
       '60 Background Removals',
       '30 Beautifications',

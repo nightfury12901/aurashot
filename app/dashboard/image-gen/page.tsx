@@ -29,6 +29,17 @@ const STYLES = [
     { id: 'none', label: 'No Style', emoji: '∅' },
 ];
 
+const RANDOM_PROMPTS = [
+    "A cyberpunk city street at night, neon lights, highly detailed, 8k",
+    "A majestic lion in the savanna, golden hour lighting, National Geographic style",
+    "A floating island in the sky with waterfalls, fantasy concept art, digital painting",
+    "A cozy cabin in a snowy forest, northern lights, warm glowing windows",
+    "A futuristic sports car on a wet road, retrowave style, reflections",
+    "A cute astronaut cat floating in space, colorful nebula background",
+    "An ancient temple hidden deep in the jungle, cinematic lighting, mysterious",
+    "A vast desert landscape with giant crystal formations, surreal artwork"
+];
+
 const STYLE_SUFFIXES: Record<string, string> = {
     realistic: ', photorealistic, 8k uhd, detailed',
     cinematic: ', cinematic lighting, dramatic, film grain, anamorphic lens',
@@ -234,7 +245,11 @@ function ImageGenInner() {
                         />
                         <button
                             className="absolute bottom-3 right-3 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-colors flex items-center gap-1 text-[10px] font-medium"
-                            onClick={() => toast.success('Random prompt generated!')}
+                            onClick={() => {
+                                const randomPrompt = RANDOM_PROMPTS[Math.floor(Math.random() * RANDOM_PROMPTS.length)];
+                                setPrompt(randomPrompt);
+                                toast.success('Random prompt generated!');
+                            }}
                         >
                             <Sparkles className="w-3 h-3" />
                             Surprise Me

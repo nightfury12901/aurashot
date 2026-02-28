@@ -89,7 +89,7 @@ export interface Payment {
 
 // Pricing types
 export interface PricingTier {
-  id: 'starter' | 'creator' | 'pro';
+  id: 'free' | 'starter' | 'creator' | 'pro';
   name: string;
   description: string;
   price: number;

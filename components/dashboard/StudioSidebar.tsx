@@ -104,9 +104,7 @@ export function StudioSidebar() {
             <aside className="hidden md:flex flex-col w-[72px] h-screen bg-studio-surface border-r border-studio-border shrink-0 py-4 z-20">
                 {/* Logo */}
                 <Link href="/dashboard" className="flex items-center justify-center mb-6 group">
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center shadow-glow-violet transition-all duration-300 group-hover:scale-110">
-                        <span className="text-white font-bold text-sm">PF</span>
-                    </div>
+                    <img src="/logo.png" alt="AuraShot Logo" className="w-9 h-9 rounded-xl ring-1 ring-white/10 shadow-lg transition-all duration-300 group-hover:scale-110" />
                 </Link>
 
                 {/* Divider */}

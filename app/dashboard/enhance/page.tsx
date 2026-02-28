@@ -7,6 +7,7 @@ import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 import { createBrowserClient } from '@supabase/ssr';
 import { useRouter } from 'next/navigation';
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 export default function EnhancePage() {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -91,7 +92,6 @@ export default function EnhancePage() {
                             <Wand2 className="h-4 w-4 text-blue-400" />
                         </div>
                         <h1 className="text-lg font-semibold text-white">AI Photo Restoration</h1>
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-400 border border-blue-500/20">Flux Pro Kontext</span>
                     </div>
                     <p className="text-white/40 text-sm ml-11">Restore old, damaged, or blurry photos back to life instantly.</p>
                 </motion.div>
@@ -186,6 +186,27 @@ export default function EnhancePage() {
                         </div>
                     </div>
                 </div>
+
+                {/* Example Slider */}
+                <div className="mt-12 mb-8">
+                    <div className="flex justify-between items-center mb-4 max-w-4xl mx-auto px-1">
+                        <h2 className="text-white/60 text-sm font-semibold uppercase tracking-wider">Quality Example</h2>
+                        <div className="flex gap-2 pointer-events-none">
+                            <div className="bg-black/50 px-2.5 py-1 rounded-md text-[10px] font-bold text-white/90 border border-white/10">Before</div>
+                            <div className="bg-blue-500/20 px-2.5 py-1 rounded-md text-[10px] font-bold text-blue-400 border border-blue-500/30">Enhanced</div>
+                        </div>
+                    </div>
+                    <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#000000] max-w-[400px] mx-auto shadow-2xl aspect-[554/792]">
+                        <ReactCompareSlider
+                            boundsPadding={0}
+                            itemOne={<ReactCompareSliderImage src="/enhancementbefore.png" alt="Before Enhancement" className="w-full h-full object-cover object-center" />}
+                            itemTwo={<ReactCompareSliderImage src="/enhancementafter.png" alt="After Enhancement" className="w-full h-full object-cover object-center" />}
+                            position={50}
+                            style={{ width: '100%', height: '100%' }}
+                            className="w-full h-full"
+                        />
+                    </div>
+                </div>
             </div>
 
             {/* Right Control Panel */}
@@ -197,7 +218,7 @@ export default function EnhancePage() {
                         {/* Context Description */}
                         <div className="p-3 rounded-xl border border-blue-500/20 bg-blue-500/[0.02]">
                             <p className="text-xs text-blue-200/60 leading-relaxed">
-                                <strong className="text-blue-300">Flux Pro Kontext</strong> analyzes the entire scene to intelligently deblur, remove scratches, and restore faces perfectly without losing the original identity.
+                                <strong className="text-blue-300">AuraShot AI Enhancement</strong> analyzes the entire scene to intelligently deblur, remove scratches, and restore faces perfectly without losing the original identity.
                             </p>
                         </div>
 

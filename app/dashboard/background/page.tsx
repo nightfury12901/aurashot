@@ -7,6 +7,7 @@ import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 import { createBrowserClient } from '@supabase/ssr';
 import { useRouter } from 'next/navigation';
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 export default function BackgroundPage() {
     const [imageFile, setImageFile] = useState<File | null>(null);
@@ -183,6 +184,31 @@ export default function BackgroundPage() {
                                 )}
                             </AnimatePresence>
                         </div>
+                    </div>
+                </div>
+
+                {/* Example Slider */}
+                <div className="mt-12 mb-8 bg-black/50 p-6 rounded-3xl border border-white/5">
+                    <div className="flex justify-between items-center mb-4 max-w-4xl mx-auto px-1">
+                        <h2 className="text-white/60 text-sm font-semibold uppercase tracking-wider">Quality Example</h2>
+                        <div className="flex gap-2 pointer-events-none">
+                            <div className="bg-black/50 px-2.5 py-1 rounded-md text-[10px] font-bold text-white/90 border border-white/10">Original</div>
+                            <div className="bg-green-500/20 px-2.5 py-1 rounded-md text-[10px] font-bold text-green-400 border border-green-500/30">No Background</div>
+                        </div>
+                    </div>
+                    <div className="relative rounded-2xl overflow-hidden border border-white/10 max-w-[400px] mx-auto shadow-2xl aspect-[2/3]">
+                        <ReactCompareSlider
+                            boundsPadding={0}
+                            itemOne={<img src="/bgbefore.png" alt="Before Background Removal" className="w-full h-full object-cover object-center" />}
+                            itemTwo={
+                                <div className="w-full h-full" style={{ background: 'repeating-conic-gradient(#1a1a22 0% 25%, #141418 0% 50%) 0 0 / 20px 20px' }}>
+                                    <img src="/bgafter.png" alt="After Background Removal" className="w-full h-full object-cover object-center" />
+                                </div>
+                            }
+                            position={50}
+                            style={{ width: '100%', height: '100%' }}
+                            className="w-full h-full"
+                        />
                     </div>
                 </div>
             </div>

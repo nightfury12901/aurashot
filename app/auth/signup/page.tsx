@@ -81,9 +81,7 @@ export default function SignupPage() {
                 className="w-full max-w-md"
             >
                 <Link href="/" className="flex items-center gap-2 justify-center mb-8">
-                    <div className="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
-                        <span className="text-white font-bold">PF</span>
-                    </div>
+                    <img src="/logo.png" alt="AuraShot Logo" className="w-10 h-10 rounded-xl ring-1 ring-white/10 shadow-lg" />
                     <span className="font-display font-bold text-2xl">AuraShot</span>
                 </Link>
 

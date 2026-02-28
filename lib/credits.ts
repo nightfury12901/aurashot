@@ -51,13 +51,13 @@ export type CreditsSummary = Record<OperationType, CreditStatus>;
 
 export const TIER_CAPS: Record<Tier, Record<OperationType, number>> = {
   free: {
-    portrait: 3,   // lifetime
-    enhance: 0,
-    bg_remove: 0,
-    background_remove: 0,
+    portrait: 2,   // lifetime
+    enhance: 3,
+    bg_remove: 10,
+    background_remove: 10,
     beautify: 0,
     prompt_reversal: 10,  // per day (midnight IST reset)
-    image_gen: 0,   // free feature — uncapped, checked separately
+    image_gen: 2,   // lifetime
   },
   starter: {
     portrait: 5,
@@ -157,11 +157,6 @@ async function _checkSingle(userId: string, operationType: OperationType): Promi
 
   const tier = (profile.tier ?? 'free') as Tier;
   const limit = TIER_CAPS[tier][operationType] ?? 0;
-
-  // image_gen is free/uncapped — always allowed
-  if (operationType === 'image_gen') {
-    return { allowed: true, hasCredits: true, used: 0, limit: 999, remaining: 999 };
-  }
 
   if (limit === 0) {
     return { allowed: false, hasCredits: false, used: 0, limit: 0, remaining: 0 };
