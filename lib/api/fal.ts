@@ -170,7 +170,7 @@ export async function generatePortraitNanaBanana2(
             prompt,
             aspect_ratio: params.aspectRatio ?? '2:3',
             output_format: 'jpeg',
-            resolution: '2K',
+            resolution: '1K',
             safety_tolerance: '4',
             limit_generations: true,
             num_images: 1,
