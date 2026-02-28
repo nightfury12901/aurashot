@@ -11,9 +11,9 @@ import Link from 'next/link';
 const opConfig = {
     portrait: { icon: Sparkles, label: 'Portraits', color: '#8b5cf6' },
     enhance: { icon: Wand2, label: 'Enhancements', color: '#3b82f6' },
-    bg_remove: { icon: Eraser, label: 'Background Removals', color: '#22c55e' },
+    bg_remove: { icon: Eraser, label: 'BG Removals', color: '#22c55e' },
     image_gen: { icon: ImagePlus, label: 'Image Gens', color: '#ec4899' },
-    prompt_reversal: { icon: ScanSearch, label: 'Prompt Reversals (Daily)', color: '#f97316' },
+    prompt_reversal: { icon: ScanSearch, label: 'Prompt Reversals', color: '#f97316' },
 };
 
 export function CreditsWidget() {

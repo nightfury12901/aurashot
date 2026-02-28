@@ -194,19 +194,21 @@ export function StudioSidebar() {
                         <AdUnit slotId="SIDEBAR_NAV" format="rectangle" isFreeTier={tier === 'free'} className="!my-2 scale-75 origin-bottom" />
                     </div>
 
-                    <Link href="/pricing" className="w-full">
-                        <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl cursor-pointer hover:bg-white/[0.04] transition-all group relative"
-                        >
-                            <Crown className="h-5 w-5 text-yellow-400/60 group-hover:text-yellow-400 transition-colors" />
-                            <span className="text-[9px] font-medium text-white/30 group-hover:text-white/60 tracking-wide">Pro</span>
-                            <div className="absolute left-full ml-3 px-2.5 py-1.5 bg-studio-panel border border-white/[0.08] rounded-lg text-xs text-white/80 whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-150 shadow-studio z-50">
-                                Upgrade to Pro
-                                <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-studio-panel" />
-                            </div>
-                        </motion.div>
-                    </Link>
+                    {tier === 'free' && (
+                        <Link href="/pricing" className="w-full">
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                className="flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl cursor-pointer hover:bg-white/[0.04] transition-all group relative"
+                            >
+                                <Crown className="h-5 w-5 text-yellow-400/60 group-hover:text-yellow-400 transition-colors" />
+                                <span className="text-[9px] font-medium text-white/30 group-hover:text-white/60 tracking-wide">Pro</span>
+                                <div className="absolute left-full ml-3 px-2.5 py-1.5 bg-studio-panel border border-white/[0.08] rounded-lg text-xs text-white/80 whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-150 shadow-studio z-50">
+                                    Upgrade to Pro
+                                    <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-studio-panel" />
+                                </div>
+                            </motion.div>
+                        </Link>
+                    )}
 
                     <motion.button
                         whileHover={{ scale: 1.05 }}
